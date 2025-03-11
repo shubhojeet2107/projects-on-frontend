@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+.main {
+    background-image: url(images/IN-en-20250303-TRIFECTA-perspective_d5f81427-d6cf-412d-8e86-2315671b9be1_large.jpg);
+    background-size: max(1200px, 100vw);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 700px;
+    position: relative;
+}
+
+.box {
+    height: 800px;
+    background-color: black;
+    opacity: 0.69;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+}
+
+nav img {
+    width: 190px;
+    position: relative;
+    z-index: 10;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 75vw;
+    margin: auto;
+}
+
+.language {
+    background-color: black;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: white;
+    position: relative;
+    z-index: 10;
+    padding: 5px 30px;
+    font-size: large;
+}
+
+.red {
+    background-color: red;
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+    position: relative;
+    left: 10px;
+    z-index: 10;
+    padding: 5px 15px;
+    font-size: large;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    color: white;
+    top: 17vh;
+}
+
+.start {
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-weight: 900;
+    font-size: 57px;
+    text-align: center;
+}
+
+.mid {
+    position: relative;
+    top: 2.5vh;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+}
+
+.end {
+    position: relative;
+    top: 8vh;
+    font-weight: 400;
+    text-align: center;
+}
+
+.input {
+    display: flex;
+    position: relative;
+    z-index: 10;
+    justify-content: center;
+    top: 27vh;
+    left: -4vw;
+    align-content: center;
+}
+
+.input input {
+    padding: 0px 10px;
+    width: 24vw;
+    height: 5.5vh;
+    position: relative;
+    left: 50px;
+    border-radius: 5px;
+    background-color: rgba(23, 23, 23, 0.3);
+    border: 0.25 solid grey;
+    font-size: large;
+    border-style: inset;
+    color: white;
+    text-align: center;
+}
+
+.starting {
+    width: 13.5vw;
+    height: 6vh;
+    position: relative;
+    left: 60px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-style: none;
+    text-align: center;
+}
+
+.separator {
+    position: relative;
+    height: 100px;
+}
+
+.separator::before {
+    content: '';
+    /* Generates the pseudo-element */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin-top: -.25rem;
+    border-radius: inherit;
+    background: linear-gradient(to right,
+            rgba(33, 13, 22, 1) 16%,
+            rgba(184, 40, 105, 1),
+            rgba(229, 9, 20, 1),
+            rgba(184, 40, 105, 1),
+            rgba(33, 13, 22, 1) 84%);
+}
+
+.first {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70vw;
+    margin: auto;
+    color: white;
+}
+
+.secImg {
+    position: relative;
+}
+
+.secImg img {
+    width: 30vw;
+    position: relative;
+    z-index: 10;
+}
+
+.secImg video {
+    position: absolute;
+    top: 95px;
+    right: 38px;
+    height: 25vh;
+    width: 23.5vw;
+}
+
+.first > div{
+    display: flex;
+    flex-direction: column;
+}
+
+.first > div :first-child{
+    font-size: 36px;
+    font-weight: bold;
+    padding: 25px;
+    position: relative;
+    top: 40px;
+}
+
+.first > div :nth-child(2){
+    font-size: 18px;
+    font-weight: 300;
+    padding: 25px;
+}
+
+.separation {
+    height: 7px;
+    background-color: rgb(46, 44, 44);
+    position: relative;
+    z-index: 20;
+    top: 50px;
+}
+
+.blank{
+    height: 10vh;
+}
+
+.mid{
+    display: flex;
+    flex-direction: column;
+}
+
+.mid p{
+    color: white;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 3vh 15vw;
+}
+
+.cont{
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.cont p:hover{
+    background-color: #414141;
+    color: white;
+}
+
+.cont p{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 67vw;
+    margin: -1vh 15vw;
+    background-color: rgba(45, 45, 45, 1);
+    padding: 25px 25px;
+}
+
+svg{
+    filter: invert(1);
+    position: relative;
+    bottom: 5vh;
+    left: 32vw;
+}
+
+.finish{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.finish p{
+    color: white;
+    max-width: 36vw;
+    margin: auto;
+}
+
+.email{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh 0vw;
+    gap: 8px;
+}
+
+.btn{
+    background-color: black;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: white;
+    padding: 15px 15vw 15px 10px;
+    font-size: large;
+    width: 23vw;
+}
+
+.btnred{
+    background-color: red;
+    border-style: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 2vw;
+    font-size: 28px;
+}
+
+.foot{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    margin: 0px 15vw;
+}
+
+.foot p{
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration-color: rgba(255, 255, 255, 0.7);
+    max-width: 36vw;
+    margin: 10px 10px 5vh 0px;
+    cursor: pointer;
+}
+
+.grid ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 8vw;
+    row-gap: 2vh;
+}
+
+.item{
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration-color: rgba(255, 255, 255, 0.7);
+    list-style: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.para{
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration-color: rgba(255, 255, 255, 0.7);
+    margin: 5vh 0px 0px 15vw;
+}

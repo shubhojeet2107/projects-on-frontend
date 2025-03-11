@@ -1,0 +1,114 @@
+.logo img {
+    width: 164px;
+  }
+  nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: "Segoe UI";
+  }
+  .container ul {
+    display: flex;
+    gap: 34px;
+  }
+  .container ul li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 1px;
+    font-weight: lighter;
+  }
+  .container ul li svg {
+    margin: 0px 5px;
+  }
+  .body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 90px 0px;
+    font-family: sans-serif;
+  }
+  .body span {
+    font-size: 45px;
+    font-weight: 300;
+  }
+  .body span img {
+    padding: 0px 15px;
+  }
+  .body p {
+    font-size: 23px;
+    text-align: center;
+    width: 62vw;
+    margin: 6vh;
+    font-weight: 300;
+  }
+  .body button {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00b6d1;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .second {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .download img {
+    padding: 0px 12px;
+    height: 60px;
+    width: 60px;
+  }
+  .download {
+    display: flex;
+    font-family: sans-serif;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    left: -170px;
+  }
+  .larger {
+    font-size: 25px;
+    font-weight: 300;
+  }
+  .smaller{
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 25px;
+  }
+  .item {
+    background-color: #f9f9f9;
+    padding: 35px 35px;
+    border-radius: 5px;
+    font-size: 25px;
+    font-weight:500;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .green{
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .item p{
+    font-weight: 200;
+    font-size: 10px;
+    padding: 5px;
+  }
+  .special{
+    color: #f9f9f9;
+  }
