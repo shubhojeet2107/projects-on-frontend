@@ -1,7 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI';
+}
+
 .logo img {
     width: 164px;
   }
   nav {
+    margin-top: 3vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -84,7 +91,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    padding: 25px;
+    padding: 25px 25px 60px 25px;
   }
   .item {
     background-color: #f9f9f9;
@@ -111,4 +118,146 @@
   }
   .special{
     color: #f9f9f9;
+  }
+
+  .box{
+    height: 90vh;
+    background-color: #222;
+  }
+
+  .box1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10vh 0vw 0vh 0vw;
+    margin: 0vh 8vw 0vh 8vw;
+  }
+
+  .para :first-child{
+    font-size: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFFFFF;
+    padding: 0vh 0vw 0vh 5vw;
+    margin: 10vh 0vw 2vh 0vw;
+  }
+
+  .para :nth-child(2){
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFFFFF;
+    max-width: 32vw;
+    text-align: center;
+  }
+
+  .subscribe{
+    height: 32vh;
+    width: 25vw;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .subscribe :first-child{
+    color: #00b6d1;
+    font-size: 24px;
+    margin: 1vh 0vw 2vh 0vw;
+    padding: 0vh 1vw 0vh 1vw;;
+  }
+
+  .subscribe :nth-child(2){
+    margin: 2vh 0vw 0vh 0vw;
+    font-size: 14.4px;
+    font-family: Segoe UI;    
+  }
+
+  .subscribe :nth-child(3){
+    border: 1px solid grey;
+    height: 5.2vh;
+    width: 20vw;
+    margin: 1vh 0vw 1vh 0vw;
+  }
+
+  .btn{
+    color: #FFFFFF;
+    background-color: #00b6d1;
+    height:5.2vh;
+    width: 20vw;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    margin: 0vh 0vw 2vh 0vw;
+  }
+
+  .box2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 65vw;
+    margin: auto;
+    padding: 15vh 0vw 0vh 0vh;
+    color: #FFFFFF;
+    gap: 2vh;
+  }
+
+  .box2 :first-child{
+    font-size: 24px;
+  }
+
+  .box2 :nth-child(4){
+    font-size: 24px;
+  }
+
+  .helloe{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-width: 85vw;
+    margin: 0vh 10vw;
+    margin-top: 10vh;
+    gap: 50px;
+  }
+
+  .one p{
+    font-size: 18px;
+    font-weight: bolder;
+    margin-bottom: 2.5vh;
+  }
+
+  .items{
+    list-style: none;
+    font-size: 16px;
+    font-weight: lighter;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .two{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .two p{
+    font-size: 18px;
+    font-weight: bolder;
+
+  }
+
+  .tenth{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 65vw;
+    margin: auto;
+    margin-top: 8vh;
+    margin-bottom: 5vh;
+  }
+
+  .tenth img{
+    height: 6vh;
+    width: 11vw;
   }
