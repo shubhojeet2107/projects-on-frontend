@@ -672,12 +672,27 @@ body {
 
 .album-4{
     color: #9d9b9b;
-    margin-left: 116px;
+    margin-left: 108px;
 }
 
 .album-5{
     color: #9d9b9b;
+    margin-left: 64px;
+}
+
+.album-6{
+    color: #9d9b9b;
+    margin-left: 116px;
+}
+
+.album-7{
+    color: #9d9b9b;
     margin-left: 95px;
+}
+
+.album-8{
+    color: #9d9b9b;
+    margin-left: 119px;
 }
 
 .date-added-1{
@@ -697,12 +712,27 @@ body {
 
 .date-added-4{
     color: #9d9b9b;
-    margin-left: 268px;
+    margin-left: 300px;
 }
 
 .date-added-5{
     color: #9d9b9b;
-    margin-left: 230px;
+    margin-left: 223px;
+}
+
+.date-added-6{
+    color: #9d9b9b;
+    margin-left: 268px;
+}
+
+.date-added-7{
+    color: #9d9b9b;
+    margin-left: 231px;
+}
+
+.date-added-8{
+    color: #9d9b9b;
+    margin-left: 250px;
 }
 
 .playbar {
