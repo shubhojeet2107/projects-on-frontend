@@ -457,7 +457,8 @@ body {
     flex-direction: row;
     align-items: center;
     color: #939090;
-    gap: 20px;
+    gap: 30px;
+    margin-left: 9px;
 }
 
 .head-2 {
@@ -593,8 +594,44 @@ body {
     background-color: #2a2238;;
 }
 
-.num{
+.num {
     color: #9d9b9b;
+    position: relative;
+    width: 24px;       /* Fix width */
+    height: 24px;      /* Fix height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .track-no {
+    display: inline;
+  }
+
+  .play-icon {
+  display: none;
+  position: absolute;
+  color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+  
+.songlist:hover .track-no {
+    display: none;
+}
+
+.songlist:hover .play-icon {
+    display: flex; /* Flex to center the icon */
+}
+
+.play-icon i {
+    font-size: 16px;
 }
 
 .song-img{
@@ -678,22 +715,35 @@ body {
     background-color: #2a2238;
     border-radius: 10px;
     display: flex;
-    align-content: center;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .songbtns {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    justify-content: center;
+    align-content: center;
+    gap: 18px;
     cursor: pointer;
 }
 
+.shuffle,
+.repeat{
+    filter: invert(0.8);
+    width: 17px;
+
+}
 .previous,
-.play,
 .next {
     filter: invert(0.8);
     width: 25px;
+}
+
+.play{
+    filter: invert(0.8);
+    width: 40px;
 }
 
 .play:hover {
@@ -702,6 +752,8 @@ body {
     filter: invert(1);
 }
 
+.shuffle:hover,
+.repeat:hover,
 .previous:hover,
 .next:hover {
     transition: transform 0.2s ease;
@@ -709,6 +761,57 @@ body {
     filter: invert(1);
 }
 
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 35%;
+  }
+  
+#current-time,
+#duration {
+    color:#939090;
+    font-size: 14px;
+  }
+  
+  #progress-bar {
+    appearance: none;
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(to right, #1db954 var(--progress, 0%), #ffffff3a var(--progress, 0%));
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }  
+  
+  /* Remove the thumb */
+#progress-bar::-webkit-slider-thumb {
+    /* -webkit-appearance: none; */
+    appearance: none;
+    width: 0;
+    height: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  
+#progress-bar::-moz-range-thumb {
+    width: 0;
+    height: 0;
+    background: transparent;
+    border: none;
+  }
+  
+  /* Progress fill
+#progress-bar::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #1db954 var(--progress, 0%), transparent 0%);
+  } */
+  
+#progress-bar::-moz-range-progress {
+    background-color: #1db954;
+    height: 4px;
+  }
+  
 .contfooter {
     background-color: #0a192f;
     /* background-color: #2a2238; */

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spotify - Web Player: Music for everyone</title>
     <link rel="stylesheet" href="spotify.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   </head>
   <body>
     <nav>
@@ -129,7 +131,10 @@
 
             <!-- song[1] -->
               <div class="songlist">
-                <div class="num">1</div>
+                <div class="num">
+                  <span class="track-no">1</span>
+                  <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                </div>
                 <img class="song-img" src="img-songs/songs[0].jpeg" alt="" />
                 <div class="cont-songlist">
                   <h4 class="c-song">Complicated</h4>
@@ -141,7 +146,10 @@
 
               <!-- song[2] -->
               <div class="songlist">
-                <div class="num">2</div>
+                <div class="num">
+                  <span class="track-no">2</span>
+                  <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                </div>
                 <img class="song-img" src="img-songs/songs[1].jpeg" alt="" />
                 <div class="cont-songlist">
                   <h4 class="c-song">Boulevard of Broken Dreams</h4>
@@ -154,7 +162,10 @@
 
               <!-- song[3] -->
               <div class="songlist">
-                <div class="num">3</div>
+                <div class="num">
+                  <span class="track-no">3</span>
+                  <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                </div>
                 <img class="song-img" src="img-songs/songs[2].jpeg" alt="" />
                 <div class="cont-songlist">
                   <h4 class="c-song">Diet Mountain Dew</h4>
@@ -167,7 +178,10 @@
 
               <!-- song[4] -->
               <div class="songlist">
-                <div class="num">4</div>
+                <div class="num">
+                  <span class="track-no">4</span>
+                  <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                </div>
                 <img class="song-img" src="img-songs/songs[3].jpeg" alt="" />
                 <div class="cont-songlist">
                   <h4 class="c-song">Night Changes</h4>
@@ -180,7 +194,10 @@
 
               <!-- song[5] -->
               <div class="songlist">
-                <div class="num">5</div>
+                <div class="num">
+                  <span class="track-no">5</span>
+                  <span class="play-icon"><i class="fa-solid fa-play"></i></span>
+                </div>
                 <img class="song-img" src="img-songs/songs[4].jpeg" alt="" />
                 <div class="cont-songlist">
                   <h4 class="c-song">Hey There Delilah</h4>
@@ -195,10 +212,17 @@
             <div class="lastpart">
                 <div class="playbar">
                     <div class="songbtns">
+                      <img class="shuffle" src="right-section/shuffle.svg" alt="">
                       <img class="previous" src="right-section/previous.svg" alt="" />
                       <img class="play" src="right-section/play.svg" alt="" />
                       <img class="next" src="right-section/next.svg" alt="" />
+                      <img class="repeat" src="right-section/repeat.svg" alt="">
                     </div>
+                    <div class="progress-container">
+                      <span id="current-time">0:00</span>
+                      <input type="range" id="progress-bar" value="0" />
+                      <span id="duration">0:00</span>
+                  </div>
                   </div>
             </div>
             </div>
