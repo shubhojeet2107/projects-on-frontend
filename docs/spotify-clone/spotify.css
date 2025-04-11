@@ -226,9 +226,14 @@ body {
     flex-direction: row;
 }
 
+.mid > section:not(.mid-left) {
+    flex-grow: 1;
+  }
+
 .c-2 {
-    height: 80vh;
-    width: 30vw;
+    /* height: 652px; */
+    min-width: 30vw;
+    padding-bottom: 67px;
     background-color: #121212;
     border-radius: 2%;
     margin-left: 15px;
@@ -249,6 +254,7 @@ body {
 .imgc-2 {
     filter: invert(0.7);
     cursor: pointer;
+    width: 20px;
 }
 
 .cont-2 {
@@ -348,6 +354,7 @@ body {
     margin-top: 35px;
     margin-left: 20px;
     justify-content: space-around;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -359,6 +366,7 @@ body {
 
 .world-1 {
     filter: invert(1);
+    width: 15px;
 }
 
 .eng {
@@ -367,12 +375,14 @@ body {
 }
 
 .c-3 {
-    height: 80vh;
-    width: 67.5vw;
+    /* height: 10vh; */
+    /* width: 60.5vw; */
+    max-width: 50%;
     background-color: #121212;
     border-radius: 1.5%;
     margin-left: 10px;
     margin-right: 15px;
+    /* margin-bottom: 5px; */
 }
 
 .c-4 {
@@ -425,7 +435,7 @@ body {
     height: 480px;
     /* height: 100%; */
     width: 970px;
-    overflow: hidden;
+    /* overflow: hidden; */
     background: #0b0f2b;
 }
 
@@ -544,7 +554,7 @@ body {
 }
 
 .scrollbox {
-    width: 942px;
+    /* width: 942px; */
     /* Adjust as needed */
     min-height: 225px;
     /* Enables scrolling when content exceeds this */
@@ -559,8 +569,8 @@ body {
 
 .lastpart{
     background-color: #000;
-    width: 900px;
-    padding: 45px;
+    max-width: 970px;
+    padding-bottom: 5px;
 }
 
 .songlist{
@@ -661,10 +671,11 @@ body {
 .playbar {
     /* position: absolute;
     bottom: 0; */
-    height: 75px;
+    height: 65px;
     width: 950px;
+    margin-bottom: 6px;
+    margin-top: 5px;
     background-color: #2a2238;
-    margin: -35px 0px 0px -40px;
     border-radius: 10px;
     display: flex;
     align-content: center;
@@ -682,6 +693,7 @@ body {
 .play,
 .next {
     filter: invert(0.8);
+    width: 25px;
 }
 
 .play:hover {
@@ -703,11 +715,11 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 10px;
+    /* margin-top: 0px; */
     margin-left: 15px;
-    margin-right: 10px;
+    margin-right: 15px;
     border-radius: 5px;
-    height: 70px;
+    width: 97.5%;
 }
 
 .preview {

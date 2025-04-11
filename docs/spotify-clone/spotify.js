@@ -1,7 +1,7 @@
 console.log("We are writing javascript");
 
 async function getSongs(){
-    let a = await fetch("http://127.0.0.1:3000/Spotify%20clone/songs/")
+    let a = await fetch("http://127.0.0.1:3000/docs/spotify-clone/songs/")
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
