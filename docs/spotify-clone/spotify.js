@@ -1,7 +1,13 @@
 console.log("We are writing javascript");
 
 async function getSongs() {
+    // let a = await fetch("http://127.0.0.1:3000/docs/spotify-clone/songs/");
     let a = await fetch("http://127.0.0.1:3000/docs/spotify-clone/songs/");
+    if (!a.ok) {
+    console.error("Failed to load songs.");
+    return [];
+}
+
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
