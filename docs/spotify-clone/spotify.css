@@ -893,3 +893,17 @@ body {
     transform: scale(1.08);
     /* grows 8% */
 }
+
+/* Add styles for active shuffle and repeat buttons */
+.player-buttons .shuffle,
+.player-buttons .repeat {
+  /* Default appearance (inactive) */
+  filter: invert(50%); /* Or adjust as needed for default inactive look */
+  transition: filter 0.2s ease; /* Smooth transition */
+}
+
+.player-buttons .shuffle.active,
+.player-buttons .repeat.active {
+  /* Highlighted appearance (active) */
+  filter: invert(100%);
+}

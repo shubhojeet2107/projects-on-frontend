@@ -1,36 +1,27 @@
 console.log("We are writing javascript");
 
-async function getSongs() {
-    // let a = await fetch("http://127.0.0.1:3000/docs/spotify-clone/songs/");
-    let a = await fetch("/docs/spotify-clone/songs/");
-    if (!a.ok) {
-    console.error("Failed to load songs.");
-    return [];
-}
-
-    let response = await a.text();
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let as = div.getElementsByTagName("a");
-    let songs = [];
-    for (let index = 0; index < as.length; index++) {
-        const element = as[index];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href);
-        }
-    }
-    return songs;
-}
-
 async function main() {
-    let songs = await getSongs();
-    console.log(songs);
+    // Define the songs array directly
+    const songs = [
+        "songs/Enrique Iglesias - Somebody's Me.mp3",
+        "songs/Rag'n'Bone Man - Human (Official Video).mp3",
+        "songs/James Arthur - Say You Won't Let Go.mp3",
+        "songs/Boulevard of Broken Dreams.mp3",
+        "songs/One Direction - Night Changes (Audio).mp3",
+        "songs/Avril Lavigne - Complicated ( Audio ).mp3",
+        "songs/Plain White T's - Hey There Delilah (Official Audio).mp3",
+        "songs/Diet Mountain Dew.mp3"
+    ];
+    console.log(songs); // Keep this log to verify
 
     const progressBar = document.getElementById('progress-bar');
     const currentTimeEl = document.getElementById('current-time');
     const durationEl = document.getElementById('duration');
 
     function formatTime(time) {
+        if (time == null || isNaN(time) || !isFinite(time) || time <= 0) {
+            return "0:00";
+        }
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -55,12 +46,12 @@ async function main() {
 
     shuffleBtn.addEventListener("click", () => {
         isShuffle = !isShuffle;
-        shuffleBtn.style.filter = isShuffle ? "invert(100%)" : "invert(50%)";
+        shuffleBtn.classList.toggle("active", isShuffle);
     });
 
     repeatBtn.addEventListener("click", () => {
         isRepeat = !isRepeat;
-        repeatBtn.style.filter = isRepeat ? "invert(100%)" : "invert(50%)";
+        repeatBtn.classList.toggle("active", isRepeat);
     });
 
     prevBtn.addEventListener("click", () => {
@@ -83,113 +74,173 @@ async function main() {
         if (currentAudio) {
             if (currentAudio.paused) {
                 currentAudio.play();
-                playBtn.src = "right-section/pause.svg";
+                updatePlayPauseUI(true);
             } else {
                 currentAudio.pause();
-                playBtn.src = "right-section/play.svg";
+                updatePlayPauseUI(false);
             }
         } else {
-            playSong(0);
-            playBtn.src = "right-section/pause.svg";
+            if (songs.length > 0) {
+                playSong(0);
+            }
         }
     });
+
+    function updatePlayPauseUI(isPlaying) {
+        if (isPlaying) {
+            playBtn.src = "right-section/pause.svg";
+            greenIcon.src = "right-section/pause.svg";
+            if (currentlyPlayingIcon) {
+                currentlyPlayingIcon.classList.remove("fa-play");
+                currentlyPlayingIcon.classList.add("fa-pause");
+            }
+        } else {
+            playBtn.src = "right-section/play.svg";
+            greenIcon.src = "right-section/m-1.svg";
+            if (currentlyPlayingIcon) {
+                currentlyPlayingIcon.classList.remove("fa-pause");
+                currentlyPlayingIcon.classList.add("fa-play");
+            }
+        }
+    }
 
     function playSong(index) {
         if (currentAudio) {
             currentAudio.pause();
-            currentAudio.currentTime = 0;
+            if (currentlyPlayingIcon && currentIndex !== index) {
+                currentlyPlayingIcon.classList.remove("fa-pause");
+                currentlyPlayingIcon.classList.add("fa-play");
+            }
             currentAudio.removeEventListener("timeupdate", updateProgress);
             currentAudio.removeEventListener("ended", handleSongEnd);
         }
 
-        if (currentlyPlayingIcon) {
-            currentlyPlayingIcon.classList.remove("fa-pause");
-            currentlyPlayingIcon.classList.add("fa-play");
+        if (index < 0 || index >= songs.length) {
+            console.error("Invalid song index:", index);
+            return;
         }
 
         currentAudio = new Audio(songs[index]);
-        currentAudio.play();
+        currentIndex = index;
 
-        progressBar.value = 0;
-        currentTimeEl.textContent = "0:00";
-        durationEl.textContent = "0:00";
-
-        currentAudio.addEventListener("loadedmetadata", () => {
-            progressBar.max = currentAudio.duration;
-            durationEl.textContent = formatTime(currentAudio.duration);
-        });
-
-        function updateProgress() {
-            progressBar.value = currentAudio.currentTime;
-            currentTimeEl.textContent = formatTime(currentAudio.currentTime);
-            const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
-            progressBar.style.setProperty('--progress', `${percent}%`);
-        }
-
-        function handleSongEnd() {
-            if (isRepeat) {
-                playSong(currentIndex); // replay the same song
-            } else if (isShuffle) {
-                const randomIndex = Math.floor(Math.random() * songs.length);
-                playSong(randomIndex);
+        if (index < songLists.length) {
+            const songElement = songLists[index];
+            if (songElement) {
+                const playIcon = songElement.querySelector(".play-icon i");
+                if (playIcon) {
+                    currentlyPlayingIcon = playIcon;
+                } else {
+                    console.warn(`Play icon not found for song index ${index}`);
+                    currentlyPlayingIcon = null;
+                }
             } else {
-                let nextIndex = (currentIndex + 1) % songs.length;
-                playSong(nextIndex);
+                console.warn(`Song element not found for index ${index}`);
+                currentlyPlayingIcon = null;
             }
+        } else {
+            console.warn(`Song list element index ${index} out of bounds`);
+            currentlyPlayingIcon = null;
         }
 
         currentAudio.addEventListener("timeupdate", updateProgress);
         currentAudio.addEventListener("ended", handleSongEnd);
 
-        const songElement = songLists[index];
-        const playIcon = songElement.querySelector(".play-icon i");
-        playIcon.classList.remove("fa-play");
-        playIcon.classList.add("fa-pause");
-        greenIcon.src = "right-section/pause.svg";
+        currentAudio.play().then(() => {
+            updatePlayPauseUI(true);
+            progressBar.value = 0;
+            currentTimeEl.textContent = "0:00";
+            durationEl.textContent = "0:00";
+            progressBar.style.setProperty('--progress', `0%`);
+            currentlyPlayingIcon = null;
+        }).catch(error => {
+            console.error("Error playing audio:", error);
+            updatePlayPauseUI(false);
+            if (currentlyPlayingIcon) {
+                currentlyPlayingIcon.classList.remove("fa-pause");
+                currentlyPlayingIcon.classList.add("fa-play");
+            }
+            currentAudio = null;
+            currentIndex = -1;
+            currentlyPlayingIcon = null;
+        });
+    }
 
-        currentlyPlayingIcon = playIcon;
-        currentIndex = index;
+    function handleLoadedMetadata() {
+        console.log("Metadata loaded! Duration:", currentAudio.duration);
+        if (currentAudio && currentAudio.duration > 0 && isFinite(currentAudio.duration)) {
+            progressBar.max = currentAudio.duration;
+            const formattedDuration = formatTime(currentAudio.duration);
+            durationEl.textContent = formattedDuration;
+        } else {
+            console.warn("Invalid duration detected in handleLoadedMetadata:", currentAudio ? currentAudio.duration : 'No currentAudio');
+            durationEl.textContent = "0:00";
+        }
+    }
+
+    function updateProgress() {
+        if (currentAudio && currentAudio.duration > 0 && isFinite(currentAudio.duration)) {
+            progressBar.value = currentAudio.currentTime;
+            currentTimeEl.textContent = formatTime(currentAudio.currentTime);
+            const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
+            progressBar.style.setProperty('--progress', `${percent}%`);
+
+            if (durationEl.textContent === "0:00") {
+                durationEl.textContent = formatTime(currentAudio.duration);
+                progressBar.max = currentAudio.duration;
+                console.log("Duration updated via updateProgress");
+            }
+        }
+    }
+
+    function handleSongEnd() {
+        if (isRepeat) {
+            playSong(currentIndex);
+        } else if (isShuffle) {
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            playSong(randomIndex);
+        } else {
+            let nextIndex = (currentIndex + 1) % songs.length;
+            playSong(nextIndex);
+        }
     }
 
     songLists.forEach((songElement, index) => {
         const playIcon = songElement.querySelector(".play-icon i");
 
-        playIcon.addEventListener("click", (e) => {
-            e.stopPropagation();
+        if (playIcon) {
+            playIcon.addEventListener("click", (e) => {
+                e.stopPropagation();
 
-            if (currentIndex === index && currentAudio && !currentAudio.paused) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                playIcon.classList.remove("fa-pause");
-                playIcon.classList.add("fa-play");
-                greenIcon.src = "right-section/m-1.svg";
-                currentAudio = null;
-                currentlyPlayingIcon = null;
-            } else {
-                playSong(index);
-            }
-        });
+                if (currentIndex === index && currentAudio) {
+                    if (!currentAudio.paused) {
+                        currentAudio.pause();
+                        updatePlayPauseUI(false);
+                    } else {
+                        currentAudio.play().then(() => {
+                            updatePlayPauseUI(true);
+                        }).catch(error => console.error("Error resuming playback:", error));
+                    }
+                } else {
+                    playSong(index);
+                }
+            });
+        } else {
+            console.warn(`Play icon not found for song element at index ${index}, cannot attach listener.`);
+        }
     });
 
     greenBtn.addEventListener("click", () => {
-        if (currentAudio && !currentAudio.paused) {
-            currentAudio.pause();
-            greenIcon.src = "right-section/m-1.svg";
-
-            if (currentlyPlayingIcon) {
-                currentlyPlayingIcon.classList.remove("fa-pause");
-                currentlyPlayingIcon.classList.add("fa-play");
+        if (currentAudio) {
+            if (!currentAudio.paused) {
+                currentAudio.pause();
+                updatePlayPauseUI(false);
+            } else {
+                currentAudio.play().then(() => {
+                    updatePlayPauseUI(true);
+                }).catch(error => console.error("Error resuming playback from green button:", error));
             }
         } else {
-            if (currentAudio) {
-                currentAudio.play();
-                greenIcon.src = "right-section/pause.svg";
-
-                if (currentlyPlayingIcon) {
-                    currentlyPlayingIcon.classList.remove("fa-play");
-                    currentlyPlayingIcon.classList.add("fa-pause");
-                }
-            } else {
+            if (songs.length > 0) {
                 playSong(0);
             }
         }
