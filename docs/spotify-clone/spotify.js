@@ -73,15 +73,31 @@ async function main() {
     playBtn.addEventListener("click", () => {
         if (currentAudio) {
             if (currentAudio.paused) {
-                currentAudio.play();
-                updatePlayPauseUI(true);
+                currentAudio.play().then(() => {
+                    updatePlayPauseUI(true);
+                    // Add playing class to current song item
+                    const currentSongElement = (currentIndex >= 0 && currentIndex < songLists.length) ? songLists[currentIndex] : null;
+                    if (currentSongElement) currentSongElement.classList.add("playing");
+                }).catch(error => console.error("Error resuming playback:", error));
             } else {
                 currentAudio.pause();
-                updatePlayPauseUI(false);
+                updatePlayPauseUI(false); // Update UI first
+                // Remove playing class from current song item slightly delayed
+                const currentSongElement = (currentIndex >= 0 && currentIndex < songLists.length) ? songLists[currentIndex] : null;
+                if (currentSongElement) {
+                    setTimeout(() => {
+                        // Check if it's still the current song and paused before removing
+                        if (currentAudio && currentAudio.paused && currentIndex === Array.from(songLists).indexOf(currentSongElement)) {
+                           currentSongElement.classList.remove("playing");
+                        }
+                    }, 10); // Small delay
+                }
             }
         } else {
+            // If no song is loaded, play the first song
             if (songs.length > 0) {
                 playSong(0);
+                // playSong handles adding the class
             }
         }
     });
@@ -105,9 +121,18 @@ async function main() {
     }
 
     function playSong(index) {
+        // Stop and cleanup previous audio if any
+        const oldIndex = currentIndex; // Store old index before changing
+        const oldSongElement = (oldIndex >= 0 && oldIndex < songLists.length) ? songLists[oldIndex] : null;
+
         if (currentAudio) {
             currentAudio.pause();
-            if (currentlyPlayingIcon && currentIndex !== index) {
+            // Remove playing class from the old song element
+            if (oldSongElement) {
+                oldSongElement.classList.remove("playing");
+            }
+            // Reset the icon of the previously playing song IF it's different from the new one
+            if (currentlyPlayingIcon && oldIndex !== index) {
                 currentlyPlayingIcon.classList.remove("fa-pause");
                 currentlyPlayingIcon.classList.add("fa-play");
             }
@@ -123,23 +148,20 @@ async function main() {
         currentAudio = new Audio(songs[index]);
         currentIndex = index;
 
-        if (index < songLists.length) {
-            const songElement = songLists[index];
-            if (songElement) {
-                const playIcon = songElement.querySelector(".play-icon i");
-                if (playIcon) {
-                    currentlyPlayingIcon = playIcon;
-                } else {
-                    console.warn(`Play icon not found for song index ${index}`);
-                    currentlyPlayingIcon = null;
-                }
+        // Find the correct play icon and song element for the new song
+        const newSongElement = (currentIndex >= 0 && currentIndex < songLists.length) ? songLists[currentIndex] : null;
+
+        if (newSongElement) {
+            const playIcon = newSongElement.querySelector(".play-icon i");
+            if (playIcon) {
+                currentlyPlayingIcon = playIcon; // Assign the new icon
             } else {
-                console.warn(`Song element not found for index ${index}`);
-                currentlyPlayingIcon = null;
+                console.warn(`Play icon not found for song index ${index}`);
+                currentlyPlayingIcon = null; // Reset if not found
             }
         } else {
             console.warn(`Song list element index ${index} out of bounds`);
-            currentlyPlayingIcon = null;
+            currentlyPlayingIcon = null; // Reset if out of bounds
         }
 
         currentAudio.addEventListener("timeupdate", updateProgress);
@@ -147,6 +169,10 @@ async function main() {
 
         currentAudio.play().then(() => {
             updatePlayPauseUI(true);
+            // Add playing class to the new song element AFTER playback starts
+            if (newSongElement) {
+                newSongElement.classList.add("playing");
+            }
             progressBar.value = 0;
             currentTimeEl.textContent = "0:00";
             durationEl.textContent = "0:00";
@@ -158,6 +184,9 @@ async function main() {
             if (currentlyPlayingIcon) {
                 currentlyPlayingIcon.classList.remove("fa-pause");
                 currentlyPlayingIcon.classList.add("fa-play");
+            }
+            if (newSongElement) {
+                newSongElement.classList.remove("playing");
             }
             currentAudio = null;
             currentIndex = -1;
@@ -207,20 +236,36 @@ async function main() {
     songLists.forEach((songElement, index) => {
         const playIcon = songElement.querySelector(".play-icon i");
 
+        // Check if playIcon exists before adding listener
         if (playIcon) {
             playIcon.addEventListener("click", (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent potential parent clicks
 
                 if (currentIndex === index && currentAudio) {
+                    // Clicked on the currently playing song's icon
                     if (!currentAudio.paused) {
+                        // If playing, pause it
                         currentAudio.pause();
-                        updatePlayPauseUI(false);
+                        updatePlayPauseUI(false); // Update UI first
+                        // Remove playing class slightly delayed
+                        if (songElement) {
+                             setTimeout(() => {
+                                // Check if it's still the current song and paused before removing
+                                if (currentAudio && currentAudio.paused && currentIndex === index) {
+                                    songElement.classList.remove("playing");
+                                 }
+                            }, 10); // Small delay
+                        }
                     } else {
+                        // If paused, play it
                         currentAudio.play().then(() => {
                             updatePlayPauseUI(true);
+                            // Add playing class
+                            if (songElement) songElement.classList.add("playing");
                         }).catch(error => console.error("Error resuming playback:", error));
                     }
                 } else {
+                    // Clicked on a different song, play it
                     playSong(index);
                 }
             });
@@ -230,18 +275,34 @@ async function main() {
     });
 
     greenBtn.addEventListener("click", () => {
+        const currentSongElement = (currentIndex >= 0 && currentIndex < songLists.length) ? songLists[currentIndex] : null;
         if (currentAudio) {
             if (!currentAudio.paused) {
+                // If playing, pause
                 currentAudio.pause();
-                updatePlayPauseUI(false);
+                updatePlayPauseUI(false); // Update UI first
+                // Remove playing class slightly delayed
+                if (currentSongElement) {
+                     setTimeout(() => {
+                        // Check if it's still the current song and paused before removing
+                         if (currentAudio && currentAudio.paused && currentIndex === Array.from(songLists).indexOf(currentSongElement)) {
+                           currentSongElement.classList.remove("playing");
+                         }
+                    }, 10); // Small delay
+                }
             } else {
+                // If paused, play
                 currentAudio.play().then(() => {
                     updatePlayPauseUI(true);
+                    // Add playing class
+                    if (currentSongElement) currentSongElement.classList.add("playing");
                 }).catch(error => console.error("Error resuming playback from green button:", error));
             }
         } else {
+            // If no song is loaded, play the first song
             if (songs.length > 0) {
                 playSong(0);
+                // playSong handles adding the class
             }
         }
     });

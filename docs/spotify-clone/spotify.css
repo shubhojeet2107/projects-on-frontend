@@ -599,17 +599,22 @@ body {
     position: relative;
     width: 24px;       /* Fix width */
     height: 24px;      /* Fix height */
-    display: flex;
+    display: flex; /* Changed to flex */
     align-items: center;
     justify-content: center;
+    /* Ensure children don't overlap unexpectedly if needed */
+    /* overflow: hidden; */
   }
 
   .track-no {
-    display: inline;
+    /* display: inline; */ /* Use opacity now */
+    opacity: 1;
+    transition: opacity 0.2s ease;
   }
 
   .play-icon {
-  display: none;
+  /* display: none; */ /* Now controlled by opacity and display:flex */
+  display: flex; /* Always flex now */
   position: absolute;
   color: white;
   top: 0;
@@ -617,17 +622,35 @@ body {
   width: 100%;
   height: 100%;
   font-size: 14px;
-  /* display: flex; */
   align-items: center;
   justify-content: center;
+  opacity: 0; /* Hidden by default */
+  pointer-events: none; /* Not clickable when hidden */
+  transition: opacity 0.2s ease;
 }
-  
+
+/* Hide track number and show icon on hover */
 .songlist:hover .track-no {
-    display: none;
+    /* display: none; */
+    opacity: 0;
 }
 
 .songlist:hover .play-icon {
-    display: flex; /* Flex to center the icon */
+    /* display: flex; */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hide track number and show icon when playing (overrides hover if needed) */
+.songlist.playing .track-no {
+    /* display: none; */
+    opacity: 0;
+}
+
+.songlist.playing .play-icon {
+    /* display: flex; */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .play-icon i {
@@ -906,4 +929,18 @@ body {
 .player-buttons .repeat.active {
   /* Highlighted appearance (active) */
   filter: invert(100%);
+}
+
+/* Add rules for the playing state */
+.songlist.playing .track-no {
+    opacity: 0; /* Hide track number when playing */
+}
+
+.songlist.playing .play-icon {
+    opacity: 1; /* Show play/pause icon when playing */
+    /* Ensure it overrides the default display:none */
+}
+
+.play-icon i {
+    font-size: 16px;
 }
